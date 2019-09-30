@@ -1,7 +1,7 @@
 from collections import defaultdict
-from math import inf
+from math import inf, sqrt
 import random
-import csv
+import pandas as pd
 
 
 def point_avg(points):
@@ -11,7 +11,16 @@ def point_avg(points):
     
     Returns a new point which is the center of all the points.
     """
-    raise NotImplementedError()
+    new_center[]
+    dimension = len(points[0])
+    points_num = len(points)
+    for d in range(dimension)
+        sum = 0
+        for n in range(point_num)
+            sum += points[n][d]
+        new_center.append(sum / float(points_num))
+    return new_center
+    # raise NotImplementedError()
 
 
 def update_centers(data_set, assignments):
@@ -21,7 +30,15 @@ def update_centers(data_set, assignments):
     Compute the center for each of the assigned groups.
     Return `k` centers in a list
     """
-    raise NotImplementedError()
+    new_centers = []
+    assignment_dict = defaultdict(list)
+    for assignment, point in zip(assignments, data_set):
+        assignment_dict[assignment].append(point)
+        
+    for c in assignment_dict:
+        new_centers.append(point_avg(assignment_dict[c]))
+
+    return new_centers
 
 
 def assign_points(data_points, centers):
@@ -44,19 +61,62 @@ def distance(a, b):
     """
     Returns the Euclidean distance between a and b
     """
-    raise NotImplementedError()
+
+    dist = 0
+    for i in range(len(a)):
+        dist += (a[i] - b[i]) ** 2
+    return sqrt(dist)
+    # raise NotImplementedError()
 
 
 def generate_k(data_set, k):
+
+    return random.sample(population=data_set, k=k)
     """
     Given `data_set`, which is an array of arrays,
     return a random set of k points from the data_set
+
+    the generated center is not necessarily one of the
+    instance from data_set, but within the extent of the data_set 
     """
-    raise NotImplementedError()
+    centers = []
+    dimensions = len(data_set[0])
+    min_max = defaultdict(int)
+
+    for dot in data_set:
+        for i in range(dimensions):
+            val = dot[i]
+            min_key = 'min_%d' % i
+            max_key = 'max_%d' % i
+            if min_key not in min_max or val < min_max[min_key]:
+                min_max[min_key] = val
+            if max_key not in min_max or val > min_max[max_key]:
+                min_max[max_key] = val
+
+    for c in range(k):
+        center = []
+        for i in range(dimensions):
+            min_val = min_max['min_%d' % i]
+            max_val = min_max['max_%d' % i]
+            center.append(uniform(min_val, max_val))
+        centers.append(center)
+
+    return centers
+    # raise NotImplementedError()
 
 
 def get_list_from_dataset_file(dataset_file):
-    raise NotImplementedError()
+    dataset = []
+    with open(dataset_file) as f:
+        csv_reader = csv.reader(f)
+        for row in csv_reader:
+            point = []
+            dimension = len(row)
+            for d in range(dimension):
+                point.append(int(row[d]))
+            dataset.append(point)
+    return dataset
+
 
 
 def cost_function(clustering):
@@ -76,3 +136,6 @@ def k_means(dataset_file, k):
     for assignment, point in zip(assignments, dataset):
         clustering[assignment].append(point)
     return clustering
+
+
+
