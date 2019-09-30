@@ -1,8 +1,7 @@
 from collections import defaultdict
 from math import inf, sqrt
 import random
-import pandas as pd
-
+import csv
 
 def point_avg(points):
     """
@@ -61,7 +60,6 @@ def distance(a, b):
     """
     Returns the Euclidean distance between a and b
     """
-
     dist = 0
     for i in range(len(a)):
         dist += (a[i] - b[i]) ** 2
@@ -70,8 +68,6 @@ def distance(a, b):
 
 
 def generate_k(data_set, k):
-
-    return random.sample(population=data_set, k=k)
     """
     Given `data_set`, which is an array of arrays,
     return a random set of k points from the data_set
@@ -100,7 +96,7 @@ def generate_k(data_set, k):
             max_val = min_max['max_%d' % i]
             center.append(uniform(min_val, max_val))
         centers.append(center)
-
+        
     return centers
     # raise NotImplementedError()
 
