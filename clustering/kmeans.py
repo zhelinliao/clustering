@@ -10,12 +10,12 @@ def point_avg(points):
     
     Returns a new point which is the center of all the points.
     """
-    new_center[]
+    new_center = []
     dimension = len(points[0])
     points_num = len(points)
-    for d in range(dimension)
+    for d in range(dimension):
         sum = 0
-        for n in range(point_num)
+        for n in range(point_num):
             sum += points[n][d]
         new_center.append(sum / float(points_num))
     return new_center
