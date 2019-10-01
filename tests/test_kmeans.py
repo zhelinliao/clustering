@@ -27,6 +27,7 @@ def test_kmeans_when_k_is_1(dataset):
     for assignment in clustering:
         clustered.append(clustering[assignment])
     assert clustered == [expected_clustering]
+#    return clustered == [expected_clustering]
 
 
 @pytest.mark.parametrize('dataset,expected1,expected2', [
@@ -69,7 +70,7 @@ def test_kmeans_when_k_is_3(dataset, expected1, expected2, expected3):
     clustering = kmeans.k_means(dataset_file=dataset, k=3)
     cost = kmeans.cost_function(clustering)
 
-    for _ in range(10):
+    for _ in range(3000):
         new_clustering = kmeans.k_means(dataset_file=dataset, k=3)
         new_cost = kmeans.cost_function(clustering)
         if new_cost < cost:
@@ -83,3 +84,19 @@ def test_kmeans_when_k_is_3(dataset, expected1, expected2, expected3):
     for assignment in clustering:
         clustered.append(clustering[assignment])
     assert clustered == [expected_clustering1, expected_clustering2, expected_clustering3]
+
+#a = "/Users/seanl/Documents/cluster/clustering/tests/test_files/dataset_1.csv"
+#b = "/Users/seanl/Documents/cluster/clustering/tests/test_files/dataset_1_k_is_3_0.csv"
+#c = "/Users/seanl/Documents/cluster/clustering/tests/test_files/dataset_1_k_is_3_1.csv"
+#d = "/Users/seanl/Documents/cluster/clustering/tests/test_files/dataset_1_k_is_3_2.csv"
+#x = test_kmeans_when_k_is_3(a,b,c,d)
+#print(x)
+
+# a1 = "/Users/seanl/Documents/cluster/clustering/tests/test_files/dataset_1.csv"
+# b1 = "/Users/seanl/Documents/cluster/clustering/tests/test_files/dataset_1_k_is_2_0.csv"
+# c1 = "/Users/seanl/Documents/cluster/clustering/tests/test_files/dataset_1_k_is_2_1.csv"
+# x1 = test_kmeans_when_k_is_2(a1,b1,c1)
+
+#a = "/Users/seanl/Documents/cluster/clustering/tests/test_files/dataset_1.csv"
+#x = test_kmeans_when_k_is_1(a)
+#print(x)

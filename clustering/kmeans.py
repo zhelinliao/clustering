@@ -15,7 +15,7 @@ def point_avg(points):
     points_num = len(points)
     for d in range(dimension):
         sum = 0
-        for n in range(point_num):
+        for n in range(points_num):
             sum += points[n][d]
         new_center.append(sum / float(points_num))
     return new_center
@@ -94,7 +94,7 @@ def generate_k(data_set, k):
         for i in range(dimensions):
             min_val = min_max['min_%d' % i]
             max_val = min_max['max_%d' % i]
-            center.append(uniform(min_val, max_val))
+            center.append(random.uniform(min_val, max_val))
         centers.append(center)
         
     return centers
@@ -116,7 +116,14 @@ def get_list_from_dataset_file(dataset_file):
 
 
 def cost_function(clustering):
-    raise NotImplementedError()
+    cost = 0
+    for key in clustering.keys():
+        points = clustering[key]
+        center = point_avg(points)
+        for p in points:
+            cost += distance(p, center)
+    return cost
+    # raise NotImplementedError()
 
 
 def k_means(dataset_file, k):
